@@ -1,6 +1,6 @@
 public class Primes {
     public static void main(String[] args) {
-        int n = Integer.parseInt(args[0]);
+        int n = Integer.parseInt(args[0]) + 1;
         boolean[] arr = new boolean[n];
         for(int i = 2; i < n; i++){
             arr[i] = true;
@@ -27,8 +27,10 @@ public class Primes {
                 primeCount++;
             }
         }
+
         int percent = primeCount * 100 / n;
         System.out.println("There are " + primeCount + " primes between 2 and " + n + " (" + percent + "% are primes)");
+
+        }
     }
     
-}
