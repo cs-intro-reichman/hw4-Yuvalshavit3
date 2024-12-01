@@ -25,7 +25,7 @@ public class MyString {
                 if(i == 0){
                     str = charat + str.substring(i + 1, str.length());
                 } else {
-                    str = str.substring(0, i - 1) + charat + str.substring(i + 1, str.length());
+                    str = str.substring(0, i) + charat + str.substring(i + 1, str.length());
                 }
                 
             }
@@ -33,9 +33,24 @@ public class MyString {
         return str;
     }
 
+
     /** If str1 contains str2, returns true; otherwise returns false. */
     public static boolean contains(String str1, String str2) {
-        // Replace the following statement with your code
+        int trueCount = 0;
+        for(int i = 0; i < str1.length() - str2.length() + 1; i++){
+            if (str1.charAt(i) == str2.charAt(0)){
+                for(int j = 0; j < str2.length(); j++){
+                    if(str1.charAt(i + j) != str2.charAt(j)){
+                        break;
+                    } else {
+                        trueCount ++;
+                    }
+                }
+            }
+        }
+        if (trueCount == str2.length()) {
+            return true;
+        }
         return false;
     }
 }
