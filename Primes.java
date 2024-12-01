@@ -18,7 +18,7 @@ public class Primes {
 
             i++;
         }
-        System.out.println("Prime numbers up to " + n + ":");
+        System.out.println("Prime numbers up to " + (n - 1) + ":");
 
         int primeCount = 0;
         for(int m = 0; m < n; m++){
