@@ -30,12 +30,31 @@ public class KeywordsDetector {
                     charat = (char) (charat + 32);
                     if(j == 0){
                         sentence = charat + sentence.substring(j + 1, sentence.length());
+                        sentences[i] = sentence;
                     } else {
                         sentence = sentence.substring(0, j) + charat + sentence.substring(j + 1, sentence.length());
+                        sentences[i] = sentence;
                     }
                 }
             }
         }
+
+        for(int i = 0; i < keywords.length; i++){
+            String word = keywords[i];
+            for(int j = 0; j < word.length(); j++){
+                char charat = word.charAt(j);
+                if(charat < 91 && charat > 64){
+                    charat = (char) (charat + 32);
+                    if(j == 0){
+                        word = charat + word.substring(j + 1, word.length());
+                        keywords[i] = word;
+                    } else {
+                        word = word.substring(0, j) + charat + word.substring(j + 1, word.length());
+                        keywords[i] = word;
+                    }
+                }
+        }
+    }
 
         for(int j = 0; j < sentences.length; j++){
             String sentence = sentences[j];
