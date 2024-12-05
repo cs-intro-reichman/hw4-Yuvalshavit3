@@ -21,6 +21,57 @@ public class KeywordsDetector {
     // Iterates through all the sentences.
     // If a sentence contains one or more of the kewords, prints it.
     public static void detectAndPrint(String[] sentences, String[] keywords) {
-        // Replace this comment with your code
+        String newArr [] = new String[sentences.length];
+        for(int i = 0; i < sentences.length; i++){
+            newArr[i] = sentences [i];
+        }
+        
+
+        for(int i = 0; i < newArr.length; i++){ //transforms all letters to lower case
+            String sentence = newArr[i];
+            for(int j = 0; j < sentence.length(); j++){
+                char charat = sentence.charAt(j);
+                if(charat < 91 && charat > 64){
+                    charat = (char) (charat + 32);
+                    if(j == 0){
+                        sentence = charat + sentence.substring(j + 1, sentence.length());
+                        newArr[i] = sentence;
+                    } else {
+                        sentence = sentence.substring(0, j) + charat + sentence.substring(j + 1, sentence.length());
+                        newArr[i] = sentence;
+                    }
+                }
+            }
+        }
+
+        for(int i = 0; i < keywords.length; i++){
+            String word = keywords[i];
+            for(int j = 0; j < word.length(); j++){
+                char charat = word.charAt(j);
+                if(charat < 91 && charat > 64){
+                    charat = (char) (charat + 32);
+                    if(j == 0){
+                        word = charat + word.substring(j + 1, word.length());
+                        keywords[i] = word;
+                    } else {
+                        word = word.substring(0, j) + charat + word.substring(j + 1, word.length());
+                        keywords[i] = word;
+                    }
+                }
+        }
+    }
+
+        for(int j = 0; j < newArr.length; j++){
+            String sentence = newArr[j];
+            for(int i = 0; i < keywords.length; i++){
+                String word = keywords[i];
+                    boolean contains = sentence.contains(word);
+                    if(contains){
+                        System.out.println(sentences[j]);
+                    }
+                
+            }
+
+        }
     }
 }
