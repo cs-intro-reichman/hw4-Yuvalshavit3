@@ -39,7 +39,15 @@ public class KeywordsDetector {
 
         for(int j = 0; j < sentences.length; j++){
             String sentence = sentences[j];
-            for(int i = 0; i < sentence.length() -  )
+            for(int i = 0; i < keywords.length; i++){
+                String word = keywords[i];
+                    boolean contains = sentence.contains(word);
+                    if(contains){
+                        System.out.println(sentence);
+                    }
+                
+            }
 
-}
+        }
+    }
 }
