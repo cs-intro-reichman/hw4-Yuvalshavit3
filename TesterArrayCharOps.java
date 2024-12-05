@@ -111,6 +111,7 @@ public class TesterArrayCharOps {
         boolean test1 = ArrCharOps.compareTo("abc", "abc") == 0;
         boolean test2 = ArrCharOps.compareTo("abc", "aBc") == 1;
         boolean test3 = ArrCharOps.compareTo("abc", "abcd") == -1;
+        
 
         int res = ArrCharOps.compareTo("abc", "");
         boolean test4 = res != 0 && res != -1 && res != 1;

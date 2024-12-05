@@ -45,18 +45,15 @@ public class ArrCharOps {
      *  returns true; Otherwise returns false.
      */
     public static boolean equals(char[] arr1, char[] arr2) {
-        boolean areEqual = false;
-        if (arr1.length == arr2.length) {
-            for (int i = 0; i < arr1.length; i++){
-                if(arr1[i] != arr2[i]){
-                    break;
-                }
-                if(i == arr1.length - 1){
-                    areEqual = true;
-                }
+        if (arr1.length != arr2.length) {
+            return false;
+        }
+        for (int i = 0; i < arr1.length; i++){
+            if(arr1[i] != arr2[i]){
+                return false;
             }
         }
-        return areEqual;
+        return true;
     }
 
     /** Returns the index within the given array of the first occurrence of the given character.
@@ -129,16 +126,15 @@ public class ArrCharOps {
      /** Returns a single integer that represents the given array. This integer is sometimes 
      *  referred to as the array's "hash code". Later in the course we'll explain what these 
      *  hash codes are used for. For now, simply implement the specification given below.
-     *  The hash code is computed as: arr[0]*7^(n-1) + arr[1]*7^(n-2) + ... + arr[n-2]*7 + arr[n-1]
+     *  The hash code is computed as: arr[0]*7^(n-1) + arr[1]*7^(n-2) + ... + arr[n-2]*7^(n-(n-1)) + arr[n-1]^(n-n)
      *  where arr[i] is the i'th character of the array, and n is the array's length.
      *  The hash value of an empty array is zero.
      */
     public static long hashCode(char[] arr) {
         long hashCo = 0;
-        int length = arr.length - 1;
-        for(int i = 0; i < arr.length; i++){
-            hashCo = hashCo + arr[i] * (long) Math.pow(7, length);
-            length--;
+        int n = arr.length;
+        for(int i = 0; i < n; i++){
+            hashCo += arr[i] * (long) Math.pow(7, n-(i+1));
         }
         return hashCo;
     }
@@ -169,69 +165,29 @@ public class ArrCharOps {
      *         return -2 if there is an error with the input.
      */
     public static int compareTo(String str1, String str2) {
-        int answer = -2;
-        if(str1.length() == 0){
-            return answer;
+        // Input validation
+        if (str1 == null || str2 == null || str1.isEmpty() || str2.isEmpty()) {
+            return -2; // Error with input
         }
-        if(str2.length() == 0){
-            return answer;
+    
+        // Compare characters one by one
+        int minLength = Math.min(str1.length(), str2.length());
+        for (int i = 0; i < minLength; i++) {
+            char c1 = str1.charAt(i);
+            char c2 = str2.charAt(i);
+            
+            if (c1 < c2) return -1; // str1 is lexicographically smaller
+            if (c1 > c2) return 1;  // str1 is lexicographically greater
         }
-        for(int i = 0; i < str1.length(); i++){
-            char charat = str1.charAt(i);
-            if(charat < 91 && charat > 64){
-                charat = (char) (charat + 32);
-                if(i > 0){
-                    str1 = str1.substring(0, i - 1) + charat + str1.substring(i + 1, str1.length());
-                } else {
-                    str1 = charat + str1.substring(i + 1, str1.length());
-                }
-                
-            }
+    
+        // If all characters up to the length of the shorter string are the same:
+        if (str1.length() < str2.length()) {
+            return -1; // str1 is lexicographically smaller
         }
-        for(int i = 0; i < str2.length(); i++){
-            char charat = str2.charAt(i);
-            if(charat < 91 && charat > 64){
-                charat = (char) (charat + 32);
-                if(i > 0){
-                    str2 = str2.substring(0, i - 1) + charat + str2.substring(i + 1, str2.length());
-                } else {
-                    str2 = charat + str2.substring(i + 1, str2.length());
-                }            }
+        if (str1.length() > str2.length()) {
+            return 1;  // str1 is lexicographically greater
         }
-        
-
-        if (str1.length() == str2.length()) {
-            for(int i = 0; i < str1.length(); i++){
-                if(str1.charAt(i) < str2.charAt(i)){
-                    return -1;
-                } else if(str1.charAt(i) > str2.charAt(i)){
-                    return 1;
-                } else if (i == str1.length() - 1) {
-                    return 0;
-                }
-            }
-        }
-
-        if (str1.length() != str2.length()){
-            String smaller = (str1.length() < str2.length()) ? str1 : str2;
-            String bigger = (str1.length() < str2.length()) ? str2 : str1;
-            for(int i = 0; i < bigger.length() - smaller.length(); i++){
-                if(smaller.charAt(0) == bigger.charAt(i)){
-                    for(int j = 0; j < smaller.length(); j++){
-                        if(smaller.charAt(j) != bigger.charAt(i + j)){
-                            break;
-                        }
-                        if(j == smaller.length() - 1){
-                            answer = (str1.length() < str2.length()) ? -1 : 1;
-                        }
-                    }
-                }
-                if(i == bigger.length() - smaller.length() - 1 && answer == -2){
-                    answer = (str1.charAt(0) < str2.charAt(0)) ? -1 : 1;
-                }
-            }
-        }
-        
-        return answer;
+    
+        return 0; // Both strings are equal
     }
 }
