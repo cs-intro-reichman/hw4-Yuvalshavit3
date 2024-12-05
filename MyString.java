@@ -39,6 +39,7 @@ public class MyString {
         if (str2.length() == 0) {
             return true;
         }
+        
         int trueCount = 0;
         if(str1.length() >= str2.length()){
         for(int i = 0; i < str1.length() - str2.length() + 1; i++){
