@@ -21,19 +21,24 @@ public class KeywordsDetector {
     // Iterates through all the sentences.
     // If a sentence contains one or more of the kewords, prints it.
     public static void detectAndPrint(String[] sentences, String[] keywords) {
+        String newArr [] = new String[sentences.length];
+        for(int i = 0; i < sentences.length; i++){
+            newArr[i] = sentences [i];
+        }
+        
 
-        for(int i = 0; i < sentences.length; i++){ //transforms all letters to lower case
-            String sentence = sentences[i];
+        for(int i = 0; i < newArr.length; i++){ //transforms all letters to lower case
+            String sentence = newArr[i];
             for(int j = 0; j < sentence.length(); j++){
                 char charat = sentence.charAt(j);
                 if(charat < 91 && charat > 64){
                     charat = (char) (charat + 32);
                     if(j == 0){
                         sentence = charat + sentence.substring(j + 1, sentence.length());
-                        sentences[i] = sentence;
+                        newArr[i] = sentence;
                     } else {
                         sentence = sentence.substring(0, j) + charat + sentence.substring(j + 1, sentence.length());
-                        sentences[i] = sentence;
+                        newArr[i] = sentence;
                     }
                 }
             }
@@ -56,13 +61,13 @@ public class KeywordsDetector {
         }
     }
 
-        for(int j = 0; j < sentences.length; j++){
-            String sentence = sentences[j];
+        for(int j = 0; j < newArr.length; j++){
+            String sentence = newArr[j];
             for(int i = 0; i < keywords.length; i++){
                 String word = keywords[i];
                     boolean contains = sentence.contains(word);
                     if(contains){
-                        System.out.println(sentence);
+                        System.out.println(sentences[j]);
                     }
                 
             }
